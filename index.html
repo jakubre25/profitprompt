@@ -548,17 +548,6 @@ Tón: Pomáhající, nevtíravý, lidský.</div>
     const status = document.getElementById('status');
     const product_id = "GS3zAYYyUK8M1nGEJjgQ3g==";
 
-    // --- TVŮJ ADMIN KLÍČ NA TESTOVÁNÍ ---
-    const adminKey = "admin"; // Tady si napiš co chceš
-    
-    if (!key) { status.innerText = "Zadejte klíč!"; return; }
-    
-    // Pokud se zadaný klíč shoduje s tvým admin klíčem, pustíme tě hned
-    if (key === adminKey) {
-        unlockWeb(key);
-        return;
-    }
-    // ------------------------------------
 
 
     status.innerText = "Ověřuji u Gumroadu...";
@@ -665,4 +654,5 @@ function unlockWeb(key) {
 </script>
 
 </body>
+
 </html>
