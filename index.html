@@ -51,19 +51,31 @@
 .nav-logo {
     display: flex;
     align-items: center;
-    gap: 6px; /* Zmenšeno z 12px na 6px - posune text blíž k logu */
+    gap: 8px;
     text-decoration: none;
     font-weight: 800;
     color: #fff;
-    font-size: 1.15rem;
-    letter-spacing: -0.5px; /* Trochu užší proklad písmen pro modernější vzhled */
-    margin-left: -55px; /* Toto posune CELÝ blok (logo i text) mírně doleva k okraji kontejneru */
+    font-size: 1.1rem;
+    margin-left: -5px;
 }
 
 .nav-logo img {
-    width: 50px;
+    width: 50px; /* Trochu zmenšeno pro lepší rovnováhu */
     height: auto;
-    image-rendering: -webkit-optimize-contrast; /* Tohle zajistí maximální ostrost rastru */
+    image-rendering: -webkit-optimize-contrast;
+}
+
+@media (max-width: 600px) {
+    .nav-logo {
+        margin-left: 0; /* Reset pro mobily, aby logo nebylo moc vlevo */
+        font-size: 0.95rem;
+    }
+    .nav-logo img {
+        width: 32px; /* Menší logo na mobilu uvolní místo textu */
+    }
+    .nav-container {
+        padding: 0 10px;
+    }
 }
 /* Status s pulzující tečkou */
 .nav-offer {
@@ -454,6 +466,34 @@
     }
     .footer-nav a:hover {
         transform: none;
+    }
+}
+/* OPRAVA PŘETÉKÁNÍ TEXTU NA MOBILU */
+@media (max-width: 768px) {
+    h1 { 
+        font-size: 2.2rem !important; /* Zmenší obří hlavní nadpis */
+        line-height: 1.2;
+    }
+    
+    h2 { 
+        font-size: 1.8rem !important; 
+    }
+
+    /* Oprava pro kartu ProfitPrompt ELITE, aby text nevyčníval */
+    .pricing h2 {
+        font-size: 1.6rem !important;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
+
+    .price {
+        font-size: 2.8rem !important;
+    }
+
+    /* Zajištění, že se žádný text neroztáhne mimo obrazovku */
+    * {
+        max-width: 100%;
+        overflow-wrap: break-word;
     }
 }
     </style>
