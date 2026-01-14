@@ -370,7 +370,7 @@ header h1 {
 }
 
 .footer-links h4 {
-    color: var(--text);
+    color: rgb(168, 62, 168);
     margin-bottom: 25px;
     font-size: 1.1rem;
 }
@@ -454,4 +454,5 @@ header h1 {
     .social-links {
         justify-content: center;
     }
+
 }
