@@ -458,6 +458,7 @@ header h1 {
 }
 /* --- FEEDBACK SECTION (MINIMALIST STYLE) --- */
 .feedback-section {
+    display: flex !important; /* Vynutí zobrazení */
     padding: 80px 20px;
     display: flex;
     justify-content: center;
@@ -560,4 +561,5 @@ header h1 {
         grid-template-columns: 1fr;
     }
 }
+
 
