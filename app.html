@@ -370,14 +370,33 @@
             const script = document.createElement('script');
             script.src = 'data.js';
             script.onload = function() {
-                Object.keys(encryptedPrompts).forEach(id => {
-                    const element = document.getElementById(id);
-                    if (element) {
-                        try {
-                            element.innerText = decodeURIComponent(escape(atob(encryptedPrompts[id])));
-                        } catch (e) { console.error("Chyba dekódování u " + id); }
+            Object.keys(encryptedPrompts).forEach(id => {
+                const element = document.getElementById(id);
+                if (element) {
+                    try {
+                        // SPECIÁLNÍ DEKODÉR PRO ČESKOU DIAKRITIKU
+                        const binaryString = atob(encryptedPrompts[id]);
+                        const bytes = new Uint8Array(binaryString.length);
+                        for (let i = 0; i < binaryString.length; i++) {
+                            bytes[i] = binaryString.charCodeAt(i);
+                        }
+                        const decodedText = new TextDecoder('utf-8').decode(bytes);
+                        
+                        element.innerText = decodedText;
+                    } catch (e) {
+                        console.error("Chyba dekódování u ID: " + id, e);
                     }
-                });
+                } else {
+                    // Pokud nějaký prompt nevidíš, v konzoli (F12) uvidíš proč
+                    console.warn("V HTML neexistuje ID: " + id);
+                }
+            });
+
+            setTimeout(() => {
+                document.getElementById('license-gate').style.display = 'none';
+                document.getElementById('app-wrapper').style.display = 'block';
+            }, 800);
+        };
 
                 setTimeout(() => {
                     document.getElementById('license-gate').style.display = 'none';
@@ -476,5 +495,6 @@
 </body>
 
 </html>
+
 
 
