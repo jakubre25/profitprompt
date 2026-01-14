@@ -370,33 +370,33 @@
             const script = document.createElement('script');
             script.src = 'data.js';
             script.onload = function() {
-            Object.keys(encryptedPrompts).forEach(id => {
-                const element = document.getElementById(id);
-                if (element) {
-                    try {
-                        // SPECIÁLNÍ DEKODÉR PRO ČESKOU DIAKRITIKU
-                        const binaryString = atob(encryptedPrompts[id]);
-                        const bytes = new Uint8Array(binaryString.length);
-                        for (let i = 0; i < binaryString.length; i++) {
-                            bytes[i] = binaryString.charCodeAt(i);
-                        }
-                        const decodedText = new TextDecoder('utf-8').decode(bytes);
-                        
-                        element.innerText = decodedText;
-                    } catch (e) {
-                        console.error("Chyba dekódování u ID: " + id, e);
-                    }
-                } else {
-                    // Pokud nějaký prompt nevidíš, v konzoli (F12) uvidíš proč
-                    console.warn("V HTML neexistuje ID: " + id);
+        Object.keys(encryptedPrompts).forEach(id => {
+        const element = document.getElementById(id);
+        if (element) {
+            try {
+                // Převod Base64 na binární řetězec
+                const binaryString = atob(encryptedPrompts[id]);
+                // Převod na pole bajtů (Uint8Array)
+                const bytes = new Uint8Array(binaryString.length);
+                for (let i = 0; i < binaryString.length; i++) {
+                    bytes[i] = binaryString.charCodeAt(i);
                 }
-            });
+                // Správné dekódování UTF-8 (vyřeší české háčky)
+                element.innerText = new TextDecoder('utf-8').decode(bytes);
+            } catch (e) {
+                console.error("Chyba u ID: " + id, e);
+            }
+        } else {
+            // Pokud se nic nezobrazuje, v konzoli (F12) uvidíš, které ID chybí v HTML
+            console.warn("V HTML kódu chybí prvek s id: " + id);
+        }
+    });
 
-            setTimeout(() => {
-                document.getElementById('license-gate').style.display = 'none';
-                document.getElementById('app-wrapper').style.display = 'block';
-            }, 800);
-        };
+    setTimeout(() => {
+        document.getElementById('license-gate').style.display = 'none';
+        document.getElementById('app-wrapper').style.display = 'block';
+    }, 800);
+};
             document.head.appendChild(script);
 
         } else {
@@ -483,6 +483,7 @@
 </body>
 
 </html>
+
 
 
 
