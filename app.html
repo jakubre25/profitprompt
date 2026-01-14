@@ -397,12 +397,6 @@
                 document.getElementById('app-wrapper').style.display = 'block';
             }, 800);
         };
-
-                setTimeout(() => {
-                    document.getElementById('license-gate').style.display = 'none';
-                    document.getElementById('app-wrapper').style.display = 'block';
-                }, 800);
-            };
             document.head.appendChild(script);
 
         } else {
@@ -441,23 +435,17 @@
             document.getElementById('noResults').style.display = 'none';
         }
 
-        function copyPrompt(id) {
+        function copyPrompt(id, btn) { // Přidali jsme parametr btn
     const text = document.getElementById(id).innerText;
-    // Použijeme moderní navigátor pro kopírování
     navigator.clipboard.writeText(text).then(() => {
-        // Najdeme tlačítko, na které se kliklo
-        const btn = event.currentTarget; 
         const originalHTML = btn.innerHTML;
-        
         btn.innerHTML = '<i class="fa-solid fa-check"></i> Kopírováno';
-        btn.style.background = '#22c55e'; // Zelená barva pro potvrzení
+        btn.style.background = '#22c55e';
         
         setTimeout(() => {
             btn.innerHTML = originalHTML;
-            btn.style.background = ''; // Vrátí původní barvu (fialovou)
+            btn.style.background = '';
         }, 2000);
-    }).catch(err => {
-        console.error('Chyba při kopírování: ', err);
     });
 }
 
