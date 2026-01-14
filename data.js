@@ -1,11 +1,11 @@
 const encryptedPrompts = {
     // E-shop & Solo (a1-a6)
-    "a1": "TmFwaXMgcG9waXMgcHJvZHVrdHUgcHJvIFtOw4daRVYgUFJPRFVLVFVdLiBaYW3EbsWfIHNlIG5hIG7F崢dCByZcWhZW7DrSBwcm9ibMOpbXUuLi4=",
-    "a2": "Vnl0dm/FmSAzIHZhcmlhbnR5IGFkcyBjb3B5IHBybyBGYWNlYm9vayBhIEluc3RhZ3JhbSBsb2PDoWzrW11IGJpem5lc3UuLi4=",
-    "a3": "TmFwaXMgNSBlLW1haWxvdsO9Y2ggc2VrdmVuY8OtIHBybyBvcHVidMSbbsO9IGtvxaHDrWsuLi4=",
-    "a4": "Vnl0dm/FmSBzdHJhdGVnaWkgcHJvIFRpazRvay4gSmFrw6kgdmlkZWEgdG9jaXQgcHJvIFtOSVNIQV0/...",
-    "a5": "TmFwaXMgU0VPIG9wdGltaXpvdmFuw70gYmxvZ292w70gxI3sw6FvZWsgbmEgdMOpbWEgW1TD ManuelTUEuLi4=",
-    "a6": "TmFwaXMgY2h0b3Zuw70gc2NyaXB0IHBybyB6w6Frem5pY2vDuiBwb2Rwb3J1Li4u",
+    "a1": "UMWZZWRzdMOtcmVqLCDFvmUganNpIMWhcGnEjWtvdsO9IGNvcHl3cml0ZXIuIE5hcGnFoSBwb3BpcyBwcm9kdWt0dSBwcm8gW07DgVpFViBQUk9EVUtUVV0uIFBvdcW+aWogc3RydWt0dXJ1IFBBUzoKMS4gUFJPQkxFTSAoUG9qbWVudWogaGxhdm7DrSBwcm9ibMOpbSB6w6FrYXpuw61rYSwga3RlcsO9IHByb2R1a3QgxZllxaHDrSkuCjIuIEFHSVRBVElPTiAoUm96ZWJlciBlbW9jZSBhIGTFr3NsZWRreSB0b2hvLCBrZHnFviBzZSBwcm9ibMOpbSBuZcWZZcWhw60pLgozLiBTT0xVVElPTiAoUMWZZWRzdGF2IG7DocWhIHByb2R1a3QgamFrbyBqZWRpbsOpIGxvZ2lja8OpIHZ5c3ZvYm96ZW7DrSkuCk5hIGtvbmNpIHDFmWlkZWogamFzbm91IHbDvXp2dSBrIGFrY2kgKENUQSkuIFTDs246IFtQxZjDgVRFTFNLw50vUFJPRkVTSU9Ow4FMTsONXS4=",
+    "a2": "Vnl0dm/FmSBzZWt2ZW5jaSAzIGUtbWFpbMWvIHBybyB6w6FrYXpuw61rYSwga3RlcsO9IG5lY2hhbCB6Ym/FvsOtIHYga2/FocOta3UuIAoxLiBlLW1haWwgKHBvIDIgaG9kaW7DoWNoKTogUMWZw6F0ZWxza8OpIHDFmWlwb21lbnV0w60sIHpkYSBuZXphcG9tbsSbbCBkb2tvbsSNaXQgbsOha3VwLiAKMi4gZS1tYWlsIChwbyAyNCBob2RpbsOhY2gpOiBOYWLDrWRrYSBwb21vY2kgbmVibyBkb3ByYXZ5IHpkYXJtYS4gCjMuIGUtbWFpbCAocG8gNDggaG9kaW7DoWNoKTogUG9zbGVkbsOtIMWhYW5jZSBhIHZ5dHZvxZllbsOtIG3DrXJuw6lobyBwb2NpdHUgbmVkb3N0YXRrdS4gClTDs246IFBvbcOhaGFqw61jw60sIG5ldnTDrXJhdsO9LCBsaWRza8O9Lg==",
+    "a3": "WmRlIGplIHVrw6F6a2EgdGV4dHUsIGt0ZXLDvSBqc2VtIG5hcHNhbCBqw6E6IFtWTE/FvUlUIFbDgcWgIFRFWFRdLiBBbmFseXp1aiBtxa9qIHN0eWwsIGTDqWxrdSB2xJt0IGEgdMOzbi4gT2R0ZcSPIHBpxaEgdsWhZWNobnkgdGV4dHkgdiB0b210byBkdWNodS4gVnlobmkgc2Uga2xpxaHDqSBqYWtvICd2IGRuZcWhbsOtbSB1c3DEm2NoYW7DqW0gc3bEm3TEmycgbmVibyAnbmFiw616w61tZSDFmWXFoWVuw60nLiBCdcSPIGtvbmtyw6l0bsOtLCBhdXRlbnRpY2vDvSBhIHBpxaEgamFrbyDEjWxvdsSbaywgbmUgamFrbyBzdHJvai4=",
+    "a4": "Vytvoř tabulku s plánem obsahu na 30 dní pro [NÁZEV E-SHOPU/ZAMĚŘENÍ]. Rozděl to na: 10x vzdělávání (jak produkt používat), 10x budování důvěry (recenze, zákulisí) a 10x prodejní příspěvky. U každého dne napiš jen hlavní myšlenku a nadpis, který zaujme. Cílová skupina: [DOPLNIT].",
+    "a5": "Obdržel jsem stížnost od zákazníka: [TEXT STÍŽNOSTI]. Napiš empatickou, profesionální a uklidňující odpověď. Navrhni řešení (výměna/sleva) a udělej ze zklamaného zákazníka věrného fanouška. Nepoužívej prázdné korporátní fráze.",
+    "a6": "Vytvoř 3 varianty textu pro Facebook reklamu na [PRODUKT]. Každá varianta musí mít: 1. Krátký úderný titulek, 2. Text zaměřený na hlavní benefit, 3. Výzvu k akci. Každá varianta ať má jiný tón: Jedna vtipná, jedna seriózní, jedna zaměřená na slevu.",
 
     // Reality (b1-b5)
     "b1": "Vnl0dm/FmSBwb3V0YXZ9IGluemVyw6F0IHBybyBuZW1vdml0b3N0IFtUWVAgTkVNT1ZJVE9TVElfLi4u",
@@ -43,4 +43,5 @@ function loadPromptsIntoPage() {
             }
         }
     });
+
 }
