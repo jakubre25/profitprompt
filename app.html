@@ -333,8 +333,8 @@
     const keyInput = document.getElementById('license-key-input').value.trim();
     const status = document.getElementById('status');
     
-    // Tvé ID (permalink)
-    const productId = "GS3zAYYyUK8M1nGEJjgQ3g=="; 
+    // ZMĚNA: Použijeme tvůj permalink z URL
+    const productId = "bdpcy"; 
 
     if (keyInput.length < 10) {
         status.style.color = "#ef4444";
@@ -347,10 +347,10 @@
 
     try {
         const formData = new FormData();
-        // ZMĚNA: Použijeme product_permalink místo product_id
+        // Zkoušíme permalink - to je u Gumroadu nejjistější
         formData.append('product_permalink', productId);
         formData.append('license_key', keyInput);
-        formData.append('increment_uses_count', 'false'); // Aby se licence nevyčerpala
+        formData.append('increment_uses_count', 'false');
 
         const response = await fetch(`https://api.gumroad.com/v2/licenses/verify`, {
             method: 'POST',
@@ -358,40 +358,46 @@
         });
 
         const data = await response.json();
-        console.log("Gumroad Response:", data); // Důležité pro ladění v F12
+        
+        // Diagnostika do konzole (F12)
+        console.log("Gumroad odpověděl:", data);
 
         if (data.success === true) {
-            status.style.color = "var(--primary)";
-            status.innerText = "Licence ověřena! Načítám...";
+            status.style.color = "#22c55e";
+            status.innerText = "Licence ověřena! Vstupuji...";
 
-            // Načtení data.js
+            // Načtení data.js a vypsání promptů
             const script = document.createElement('script');
             script.src = 'data.js';
             script.onload = function() {
-                Object.keys(encryptedPrompts).forEach(id => {
-                    const element = document.getElementById(id);
-                    if (element) {
-                        try {
-                            element.innerText = decodeURIComponent(escape(atob(encryptedPrompts[id])));
-                        } catch (e) { console.error("Chyba dekódování u " + id); }
-                    }
-                });
+                if (typeof encryptedPrompts !== 'undefined') {
+                    Object.keys(encryptedPrompts).forEach(id => {
+                        const element = document.getElementById(id);
+                        if (element) {
+                            try {
+                                element.innerText = decodeURIComponent(escape(atob(encryptedPrompts[id])));
+                            } catch (e) { console.error("Chyba dekódování u " + id); }
+                        }
+                    });
 
-                setTimeout(() => {
-                    document.getElementById('license-gate').style.display = 'none';
-                    document.getElementById('app-wrapper').style.display = 'block';
-                }, 1000);
+                    setTimeout(() => {
+                        document.getElementById('license-gate').style.display = 'none';
+                        document.getElementById('app-wrapper').style.display = 'block';
+                    }, 800);
+                } else {
+                    status.innerText = "Chyba: Soubor s daty nenalezen.";
+                }
             };
             document.head.appendChild(script);
 
         } else {
             status.style.color = "#ef4444";
-            // Vypíšeme přesnou chybu od Gumroadu, pokud existuje
-            status.innerText = data.message || "Neplatná nebo vyčerpaná licence.";
+            // Pokud Gumroad vrátí chybu, vypíšeme ji (např. "příliš mnoho použití")
+            status.innerText = "Chyba: " + (data.message || "Neplatný klíč.");
         }
     } catch (error) {
-        console.error("Chyba:", error);
-        status.innerText = "Chyba spojení (zkontrolujte, zda web běží na HTTPS).";
+        console.error("Chyba spojení:", error);
+        status.innerText = "Chyba: Web musí běžet na GitHubu (HTTPS).";
     }
 }
         function unlockWeb() {
@@ -475,3 +481,4 @@
 </body>
 
 </html>
+
