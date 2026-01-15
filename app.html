@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ProfitPrompt | Dashboard</title>
+    <link rel="icon" type="image/png" href="navlogo2.PNG">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <link rel="stylesheet" href="style-app.css">
+</head>
+<body>
+
+    <div id="license-gate">
+        <div class="gate-card">
+            <h1>ProfitPrompt</h1>
+            <p style="color: var(--text-dim);">Zadejte Váš unikátní licenční klíč:</p>
+            <input type="text" id="license-key-input" placeholder="6F0E4C97-B72A4E69-A11BF6C4-AF6517E7">
+            <button class="btn-unlock" onclick="verifyLicense()">Odemknout</button>
+            <div id="status" style="margin-top: 15px; font-size: 0.9rem;"></div>
+        </div>
+    </div>
+
+    <div id="app-wrapper" style="display: none;">
+        <div class="container">
+            <header style="text-align: center; margin-bottom: 50px;">
+                <nav class="navbar">
+                    <div class="nav-container">
+                        <div class="nav-logo">
+                            <a href="app.html"><img src="navlogo2.PNG" alt="Logo"></a>
+                            <span><a href="app.html">ProfitPrompt</a></span>
+                        </div>
+                        
+                        <div class="nav-info-group">
+                            <div class="nav-badge version">
+                                <i class="fa-solid fa-clock-rotate-left"></i>
+                                <span>Poslední aktualizace: 14.01.2026 (Verze 2.3)</span>
+                            </div>
+                            <div class="nav-badge tip">
+                                <i class="fa-solid fa-lightbulb"></i>
+                                <span>TIP: Prompty budou fungovat okamžitě. Stačí doplnit údaje v [ZÁVORKÁCH].</span>
+                            </div>
+                        </div>
+                        <div style="display: flex; align-items: center;">
+                            <a href="profile.html" class="nav-profile" title="Profil">
+                                <i class="fa-solid fa-circle-user"></i>
+                            </a>
+                        </div>
+                    </div>
+                </nav>
+            
+                <h1 style="margin-top: 30px;"><span class="gradient-text">ProfitPrompt</span> | Moje Knihovna</h1>
+                
+                <div class="search-box" style="margin-top: 40px;">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" id="searchInput" onkeyup="searchFun()" placeholder="Hledat téma, klíčové slovo nebo kategorii...">
+                </div>
+            </header>
+
+            <div class="grid" id="mainGrid">
+                <div class="category-card" onclick="openSection('sec1')">
+                    <i class="fa-solid fa-shop"></i>
+                    <h2>E-shop & Solo</h2>
+                </div>
+                <div class="category-card" onclick="openSection('sec2')">
+                    <i class="fa-solid fa-house-chimney"></i>
+                    <h2>Reality</h2>
+                </div>
+                <div class="category-card" onclick="openSection('sec3')">
+                    <i class="fa-brands fa-linkedin"></i>
+                    <h2>LinkedIn & Brand</h2>
+                </div>
+                <div class="category-card" onclick="openSection('sec4')">
+                    <i class="fa-solid fa-users-gear"></i>
+                    <h2>HR & Nábor</h2>
+                </div>
+                <div class="category-card" onclick="openSection('sec5')">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <h2>Lokální služby</h2>
+                </div>
+                <div class="category-card" onclick="openSection('sec6')">
+                    <i class="fa-solid fa-clapperboard"></i>
+                    <h2>Content Creator</h2>
+                </div>
+            </div>
+
+            <div id="sec1" class="detail-section" style="display: none;">
+                <button class="close-btn" onclick="closeAll()">← Zpět do kategorií</button>
+                <h2>Solopreneur / E-SHOP</h2>
+                <div class="prompt-item">
+                    <button class="copy-btn" onclick="copyPrompt('a1')"><i class="fa-regular fa-copy"></i> Kopírovat</button>
+                    <span class="tag">Metoda PAS</span>
+                    <div class="prompt-title">1. "Píšící přístroj na peníze"</div>
+                    <p class="prompt-desc">Tento prompt donutí AI napsat popisek produktu, který netlačí na pilu, ale logicky vede k nákupu.</p>
+                    <div class="prompt-content" id="a1"></div>
+                </div>
+                <div class="prompt-item">
+                    <button class="copy-btn" onclick="copyPrompt('a2')">
+                        <i class="fa-regular fa-copy"></i> Kopírovat
+                    </button>
+                    <span class="tag">E-mail Marketing</span>
+                    <div class="prompt-title">2. "Záchranář opuštěného košíku"</div>
+                    <p class="prompt-desc">Tento prompt vytvoří sekvenci 3 e-mailů, které připomenou zákazníkovi nákup a jemně ho postrčí k dokončení objednávky.</p>
+                    <div class="prompt-content" id="a2"></div>
+                </div>
+                <div class="prompt-item">
+                    <button class="copy-btn" onclick="copyPrompt('a3')">
+                        <i class="fa-regular fa-copy"></i> Kopírovat
+                    </button>
+                    <span class="tag">Osobnost značky</span>
+                    <div class="prompt-title">3. "Detektor robotického psaní"</div>
+                    <p class="prompt-desc">Tento prompt zajistí, že AI přestane psát obecné fráze a začne používat váš specifický styl a slovník.</p>
+                    <div class="prompt-content" id="a3"></div>
+                </div>
+                <div class="prompt-item">
+                    <button class="copy-btn" onclick="copyPrompt('a4')">
+                        <i class="fa-regular fa-copy"></i> Kopírovat
+                    </button>
+                    <span class="tag">Témáta obsahu</span>
+                    <div class="prompt-title">4. "Měsíční obsahový architekt"</div>
+                    <p class="prompt-desc">Tento prompt vygeneruje kompletní plán témat na 30 dní, abyste už nikdy nemuseli koukat do prázdného monitoru.</p>
+                    <div class="prompt-content" id="a4"></div>
+                </div>
+                <div class="prompt-item">
+                    <button class="copy-btn" onclick="copyPrompt('a5')">
+                        <i class="fa-regular fa-copy"></i> Kopírovat
+                    </button>
+                    <span class="tag">Stížnosti</span>
+                    <div class="prompt-title">5. "Utišovač nespokojených zákazníků"</div>
+                    <p class="prompt-desc">Jedna špatná recenze může zničit reputaci. Tento prompt vygeneruje odpověď na reklamaci nebo stížnost tak diplomaticky, že zákazníka uklidní a často z něj udělá věrného klienta.</p>
+                    <div class="prompt-content" id="a5"></div>
+                </div>
+                <div class="prompt-item">
+                    <button class="copy-btn" onclick="copyPrompt('a6')">
+                        <i class="fa-regular fa-copy"></i> Kopírovat
+                    </button>
+                    <span class="tag">Strategie</span>
+                    <div class="prompt-title">6. "Stroj na Facebook reklamy"</div>
+                    <p class="prompt-desc">Většina lidí na Facebooku reklamy přehlíží. Tento prompt vám vytvoří tři různé strategie zásahu – od vtipu po čistý prodej – aby vaše reklama konečně vyčnívala a přinášela prokliky za méně peněz.</p>
+                    <div class="prompt-content" id="a6"></div>
+                </div>
+            </div>
+
+            <div id="sec2" class="detail-section" style="display: none;">
+                <button class="close-btn" onclick="closeAll()">← Zpět do kategorií</button>
+                <h2>Realitní makléři</h2>
+                <div class="prompt-item">
+                    <button class="copy-btn" onclick="copyPrompt('b1')"><i class="fa-regular fa-copy"></i> Kopírovat</button>
+                    <span class="tag">Inzerce</span>
+                    <div class="prompt-title">1. "Emoční inzerát"</div>
+                    <p class="prompt-desc">Tento prompt promění nudný seznam (3kk, balkon, plastová okna) v příběh, který prodává domov.</p>
+                    <div class="prompt-content" id="b1"></div>
+                </div>
+                <div class="prompt-item">
+                    <button class="copy-btn" onclick="copyPrompt('b2')">
+                        <i class="fa-regular fa-copy"></i> Kopírovat
+                    </button>
+                    <span class="tag">Socialní Média</span>
+                    <div class="prompt-title">2. "Reels scénář, co prodává"</div>
+                    <p class="prompt-desc">Krátký a úderný scénář pro video prohlídku, který udrží pozornost lidí na sociálních sítích.</p>
+                    <div class="prompt-content" id="b2"></div>
+                </div>
+                <div class="prompt-item">
+                    <button class="copy-btn" onclick="copyPrompt('b3')">
+                        <i class="fa-regular fa-copy"></i> Kopírovat
+                    </button>
+                    <span class="tag">Komunikace</span>
+                    <div class="prompt-title">3. "Diplomatický asistent"</div>
+                    <p class="prompt-desc">Prompt, který vám pomůže bleskově a profesionálně odpovídat na dotazy klientů, i když jsou nepříjemné.</p>
+                    <div class="prompt-content" id="b3"></div>
+                </div>
+                <div class="prompt-item">
+                    <button class="copy-btn" onclick="copyPrompt('b4')">
+                        <i class="fa-regular fa-copy"></i> Kopírovat
+                    </button>
+                    <span class="tag">Nové nabídky</span>
+                    <div class="prompt-title">4. "Náborový dopis do schránky"</div>
+                    <p class="prompt-desc">Nejtěžší část práce makléře je získat nové nemovitosti do nabídky. Tento prompt napíše dopis, který nepůsobí jako spam, ale jako nabídka pomoci od souseda, který trhu opravdu rozumí.</p>
+                    <div class="prompt-content" id="b4"></div>
+                </div>
+                <div class="prompt-item">
+                    <button class="copy-btn" onclick="copyPrompt('b5')">
+                        <i class="fa-regular fa-copy"></i> Kopírovat
+                    </button>
+                    <span class="tag">Názvy inzerátů</span>
+                    <div class="prompt-title">5. "Kreativní názvy pro inzeráty"</div>
+                    <p class="prompt-desc">První věc, kterou člověk na Sreality.cz vidí, je titulek. Pokud nezaujme, makléř přichází o peníze. Tento prompt vygeneruje 10 magnetů na kliknutí, které odliší vaši nabídku od stovek nudných inzerátů konkurence.</p>
+                    <div class="prompt-content" id="b5"></div>
+                </div>
+            </div>
+
+            <div id="sec3" class="detail-section" style="display: none;">
+                <button class="close-btn" onclick="closeAll()">← Zpět do kategorií</button>
+                <h2>LinkedIn & Brand</h2>
+                <div class="prompt-item">
+                    <button class="copy-btn" onclick="copyPrompt('c1')">
+                        <i class="fa-regular fa-copy"></i> Kopírovat
+                    </button>
+                    <span class="tag">Zaujmutí</span>
+                    <div class="prompt-title">1. "LinkedIn Hook Generator"</div>
+                    <p class="prompt-desc">Prvních pár slov na LinkedIn rozhoduje o tom, jestli lidé kliknou na 'Zobrazit více'. Tento prompt vytvoří 5 variant začátků příspěvků, které okamžitě zastaví skrolování.</p>
+                    <div class="prompt-content" id="c1"></div>
+                </div>
+                <div class="prompt-item">
+                    <button class="copy-btn" onclick="copyPrompt('c2')">
+                        <i class="fa-regular fa-copy"></i> Kopírovat
+                    </button>
+                    <span class="tag">Mind converter</span>
+                    <div class="prompt-title">2. "Autoritativní článek z myšlenek"</div>
+                    <p class="prompt-desc">Tento prompt vezme vaše strohé poznámky a přetvoří je v profesionální příspěvek, který vás vykreslí jako experta v oboru, aniž by to znělo jako nudná učebnice.</p>
+                    <div class="prompt-content" id="c2"></div>
+                </div>
+            </div>
+
+            <div id="sec4" class="detail-section" style="display: none;">
+                <button class="close-btn" onclick="closeAll()">← Zpět do kategorií</button>
+                <h2>HR & Nábor</h2>
+                <div class="prompt-item">
+                    <button class="copy-btn" onclick="copyPrompt('d1')">
+                        <i class="fa-regular fa-copy"></i> Kopírovat
+                    </button>
+                    <span class="tag">Inzerát</span>
+                    <div class="prompt-title">1. "Inzerát, na který lidé chtějí odpovědět"</div>
+                    <p class="prompt-desc">Tento prompt vezme vaše strohé poznámky a přetvoří je v profesionální příspěvek, který vás vykreslí jako experta v oboru, aniž by to znělo jako nudná učebnice.</p>
+                    <div class="prompt-content" id="d1"></div>
+                </div>
+                <div class="prompt-item">
+                    <button class="copy-btn" onclick="copyPrompt('d2')">
+                        <i class="fa-regular fa-copy"></i> Kopírovat
+                    </button>
+                    <span class="tag">Dotazy k pohovoru</span>
+                    <div class="prompt-title">2. "Screeningové otázky na pohovor"</div>
+                    <p class="prompt-desc">Prompt, který vám připraví sadu otázek na míru dané pozici, abyste během 15 minut poznali, jestli kandidát lže nebo jestli má skutečně zkušenosti.</p>
+                    <div class="prompt-content" id="d2"></div>
+                </div>
+            </div>
+
+            <div id="sec5" class="detail-section" style="display: none;">
+                <button class="close-btn" onclick="closeAll()">← Zpět do kategorií</button>
+                <h2>Lokální služby</h2>
+                <div class="prompt-item">
+                    <button class="copy-btn" onclick="copyPrompt('e1')">
+                        <i class="fa-regular fa-copy"></i> Kopírovat
+                    </button>
+                    <span class="tag">Popisek firmy</span>
+                    <div class="prompt-title">1. "Lokální SEO magnet na Google"</div>
+                    <p class="prompt-desc">Tento prompt napíše popisek pro 'Firmy na Googlu' tak, aby se vaše služba zobrazovala na prvních místech, když lidé ve vašem okolí hledají pomoc.</p>
+                    <div class="prompt-content" id="e1"></div>
+                </div>
+                <div class="prompt-item">
+                    <button class="copy-btn" onclick="copyPrompt('e2')">
+                        <i class="fa-regular fa-copy"></i> Kopírovat
+                    </button>
+                    <span class="tag">Recenze</span>
+                    <div class="prompt-title">2. "Sběrač recenzí"</div>
+                    <p class="prompt-desc">Recenze prodávají nejvíc. Tento prompt vytvoří krátkou a milou SMS/zprávu, kterou pošlete zákazníkovi po dokončení práce, aby vám s radostí nechal 5 hvězdiček.</p>
+                    <div class="prompt-content" id="e2"></div>
+                </div>
+            </div>
+
+            <div id="sec6" class="detail-section" style="display: none;">
+                <button class="close-btn" onclick="closeAll()">← Zpět do kategorií</button>
+                <h2>Content Creator</h2>
+                <div class="prompt-item">
+                    <button class="copy-btn" onclick="copyPrompt('f1')">
+                        <i class="fa-regular fa-copy"></i> Kopírovat
+                    </button>
+                    <span class="tag">Kontent nápady</span>
+                    <div class="prompt-title">1. "Generátor virálních témat (Viral Ideas)"</div>
+                    <p class="prompt-desc">Nejtěžší je vymyslet, o čem točit. Tento prompt analyzuje vaši niku a vyhodí 10 nápadů na videa, která mají potenciál stát se virálními, protože útočí na emoce a zvědavost.</p>
+                    <div class="prompt-content" id="f1"></div>
+                </div>
+                <div class="prompt-item">
+                    <button class="copy-btn" onclick="copyPrompt('f2')">
+                        <i class="fa-regular fa-copy"></i> Kopírovat
+                    </button>
+                    <span class="tag">Reels scénář</span>
+                    <div class="prompt-title">2. "Scénář se strukturou pro udržení pozornosti"</div>
+                    <p class="prompt-desc">Lidé průměrně vypínají video po 3 vteřinách. Tento prompt napíše scénář se strukturou HOOK-BODY-CTA, která udrží diváka až do konce a donutí ho k akci.</p>
+                    <div class="prompt-content" id="f2"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 
+
+</div> 
+</div> 
+<section class="feedback-section">
+    <div class="feedback-container">
+        <div class="feedback-content">
+            <span class="badge">Spolupráce</span>
+            <h2>Máš nějaký nápad?</h2>
+            <p class="intro-text">
+                Nenašel jsi sekci kterou potřebuješ nebo ti chybí konkrétní prompt? 
+                Tato knihovna neustále roste a jako člen se můžeš přímo podílet na jejím obsahu.
+            </p>
+            
+            <div class="feedback-grid">
+                <div class="feedback-item">
+                    <i class="fa-solid fa-plus-circle"></i>
+                    <span>Nová kategorie</span>
+                </div>
+                <div class="feedback-item">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <span>Chybějící prompt</span>
+                </div>
+                <div class="feedback-item">
+                    <i class="fa-solid fa-comment-dots"></i>
+                    <span>Vlastní dotaz</span>
+                </div>
+            </div>
+
+            <div class="cta-box">
+                <p>Skvělé! Na e-mailovou adresu&nbsp;<a style="color: rgb(215, 132, 231);">jakubpropagace@email.cz</a>&nbsp; napiš znění tvého požadavku a do pár hodin můžeš očekávat nový obsah nebo soukromou odpověď!</p>
+            </div>
+
+            <div class="warning-box">
+                <p><strong>Důležité: </strong> Podmínkou úspěšného vyřízení vašeho požadavku je nezbytné<br> uvedení &nbsp;<strong style="color: rgb(226, 226, 226);">PŘEDMĚTU</strong>&nbsp;v e-mailu! Příchozí e-maily bez předmětu nebudou vyřízeny.</p>
+            </div>
+        </div>
+    </div>
+</section>
+<footer class="footer">
+<div class="footer-content">
+    <div class="footer-grid">
+        <div class="footer-brand">
+            <div class="footer-logo">
+                <img src="navlogo2.PNG" alt="ProfitPrompt Logo" style="height: 40px;">
+                <span class="logo-text">ProfitPrompt</span>
+            </div>
+            <p>Největší česká databáze AI promptů pro moderní podnikatele. Šetřete čas a zvyšte zisky s našimi nástroji.</p>
+            <div class="social-links">
+                <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+        </div>
+
+        <div class="footer-links">
+            <h4 style="color: rgb(191, 52, 219);">Právní informace</h4>
+            <a href="#">Obchodní podmínky</a>
+            <a href="#">Ochrana soukromí</a>
+            <a href="#">Reklamační řád</a>
+        </div>
+
+        <div class="footer-links">
+            <h4 style="color: rgb(191, 52, 219);">Podpora</h4>
+            <a href="#searchInput">Hledat v knihovně</a>
+            <div class="support-info">
+                <div class="support-item">
+                    <i class="fa-solid fa-envelope"></i>
+                    <span>jakubpropagace@email.cz</span>
+                </div>
+                <div class="support-item">
+                    <i class="fa-solid fa-clock"></i>
+                    <span>Technická podpora: Po–Pá</span>
+                </div>
+                <a href="#" style="margin-top: 5px;">Často kladené dotazy</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="footer-bottom">
+        <p>&copy; 2026 ProfitPrompt. Všechna práva vyhrazena. | Made by jakubre</p>
+    </div>
+
+    <p style="font-size: 0.75rem; color: #64748b; line-height: 1.6; max-width: 900px; margin: 25px auto 0; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 20px;">
+        <strong>Disclaimer:</strong> ProfitPrompt je nezávislé obchodní označení pro digitální obsah. 
+        Názvy jako ChatGPT, Midjourney, OpenAI či Claude jsou registrované ochranné známky jejich vlastníků. 
+        Tento projekt není žádnou z těchto společností sponzorován, podporován ani k nim není přidružen. 
+        Prompty jsou určeny pro vzdělávací a pracovní účely.
+    </p>
+</div>
+</footer>
+
+<script>
+       async function verifyLicense() {
+    const keyInput = document.getElementById('license-key-input').value.trim();
+    const status = document.getElementById('status');
+    
+    // Použijeme přesně to ID, které si Gumroad vyžádal v té chybové hlášce
+    const productId = "GS3zAYYyUK8M1nGEJjgQ3g==";
+    const permalink = "bdpcy";
+
+    if (keyInput.length < 10) {
+        status.style.color = "#ef4444";
+        status.innerText = "Zadejte platný licenční klíč.";
+        return;
+    }
+
+    status.style.color = "var(--secondary)";
+    status.innerText = "Ověřování licence...";
+
+    try {
+        const formData = new FormData();
+        // Posíláme obojí, aby byl Gumroad spokojený
+        formData.append('product_id', productId);
+        formData.append('product_permalink', permalink);
+        formData.append('license_key', keyInput);
+        formData.append('increment_uses_count', 'false');
+
+        const response = await fetch(`https://api.gumroad.com/v2/licenses/verify`, {
+            method: 'POST',
+            body: formData
+        });
+
+        const data = await response.json();
+        console.log("Gumroad Response:", data);
+
+        if (data.success === true) {
+            status.style.color = "#22c55e";
+            status.innerText = "Licence ověřena!";
+
+// --- NOVÉ: Uložení klíče do paměti prohlížeče ---
+localStorage.setItem('profitprompt_key', keyInput);
+    // -----------------------------------------------
+            
+// Gumroad vrací e-mail v objektu purchase.email
+if (data.purchase && data.purchase.email) {
+        localStorage.setItem('profitprompt_email', data.purchase.email);
+    }
+
+            // Načtení data.js a rozšifrování
+            const script = document.createElement('script');
+            script.src = 'data.js';
+            script.onload = function() {
+        Object.keys(encryptedPrompts).forEach(id => {
+        const element = document.getElementById(id);
+        if (element) {
+            try {
+                // Převod Base64 na binární řetězec
+                const binaryString = atob(encryptedPrompts[id]);
+                // Převod na pole bajtů (Uint8Array)
+                const bytes = new Uint8Array(binaryString.length);
+                for (let i = 0; i < binaryString.length; i++) {
+                    bytes[i] = binaryString.charCodeAt(i);
+                }
+                // Správné dekódování UTF-8 (vyřeší české háčky)
+                element.innerText = new TextDecoder('utf-8').decode(bytes);
+            } catch (e) {
+                console.error("Chyba u ID: " + id, e);
+            }
+        } else {
+            // Pokud se nic nezobrazuje, v konzoli (F12) uvidíš, které ID chybí v HTML
+            console.warn("V HTML kódu chybí prvek s id: " + id);
+        }
+    });
+
+    setTimeout(() => {
+        document.getElementById('license-gate').style.display = 'none';
+        document.getElementById('app-wrapper').style.display = 'block';
+    }, 800);
+};
+            document.head.appendChild(script);
+
+        } else {
+            status.style.color = "#ef4444";
+            status.innerText = "Chyba: " + (data.message || "Neplatný klíč.");
+        }
+    } catch (error) {
+        console.error("Chyba:", error);
+        status.innerText = "Chyba spojení se serverem.";
+    }
+}
+        function unlockWeb() {
+            document.getElementById('license-gate').style.display = 'none';
+            document.getElementById('app-wrapper').style.display = 'block';
+        }
+
+        window.onload = () => {
+    const savedKey = localStorage.getItem('profitprompt_key');
+    
+    if (savedKey) {
+        // Pokud klíč najdeme, automaticky ho vyplníme a zkusíme ověřit
+        document.getElementById('license-key-input').value = savedKey;
+        verifyLicense(); 
+    } else {
+        // Pokud klíč nemáme, zobrazíme normálně bránu
+        document.getElementById('license-gate').style.display = 'flex';
+        document.getElementById('app-wrapper').style.display = 'none';
+    }
+};        // NAVIGACE
+        function openSection(id) {
+            document.getElementById('mainGrid').style.display = 'none';
+            document.querySelectorAll('.detail-section').forEach(s => s.style.display = 'none');
+            const target = document.getElementById(id);
+            if (target) {
+                target.style.display = 'block';
+                window.scrollTo(0, 0);
+            }
+        }
+
+        function closeAll() {
+            document.querySelectorAll('.detail-section').forEach(s => s.style.display = 'none');
+            document.getElementById('mainGrid').style.display = 'grid';
+            document.getElementById('noResults').style.display = 'none';
+        }
+
+        function copyPrompt(id, btn) { // Přidali jsme parametr btn
+    const text = document.getElementById(id).innerText;
+    navigator.clipboard.writeText(text).then(() => {
+        const originalHTML = btn.innerHTML;
+        btn.innerHTML = '<i class="fa-solid fa-check"></i> Kopírováno';
+        btn.style.background = '#22c55e';
+        
+        setTimeout(() => {
+            btn.innerHTML = originalHTML;
+            btn.style.background = '';
+        }, 2000);
+    });
+}
+
+        function searchFun() {
+            let filter = document.getElementById('searchInput').value.toUpperCase();
+            let promptItems = document.querySelectorAll('.prompt-item');
+            let visibleCount = 0;
+            
+            if (filter === "") {
+                closeAll();
+                return;
+            }
+
+            document.getElementById('mainGrid').style.display = 'none';
+            promptItems.forEach(item => {
+                let text = item.innerText || item.textContent;
+                if (text.toUpperCase().indexOf(filter) > -1) {
+                    item.style.display = "block"; 
+                    item.closest('.detail-section').style.display = "block";
+                    visibleCount++;
+                } else {
+                    item.style.display = "none"; 
+                }
+            });
+            document.getElementById('noResults').style.display = visibleCount === 0 ? 'block' : 'none';
+        }
+
+        function resetSearch() {
+            document.getElementById('searchInput').value = '';
+            closeAll();
+        }
+
+    
+    </script>
+</body>
+
+</html>
+
+
+
+
+
+
+
+
